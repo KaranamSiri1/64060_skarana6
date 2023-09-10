@@ -1,0 +1,57 @@
+```{r}
+data(UCBAdmissions)
+UCBAdmissions
+# Creating a simulated dataset
+Admit <- c("Admitted", "Admitted", "Admitted", "Rejected", "Rejected")
+Gender <- c("Male", "Female", "Male", "Female", "Male")
+Dept <- c("A", "B", "C", "D", "E")
+n <- c(100, 120, 80, 90, 110)
+
+# Combining variables into a dataframe
+UCBAdmissions <- data.frame(Admit, Gender, Dept, n)
+
+# Print descriptive statistics for categorical variables
+table(UCBAdmissions$Admit)
+table(UCBAdmissions$Gender)
+table(UCBAdmissions$Dept)
+
+# Print descriptive statistics for quantitative variable 'n'
+summary(UCBAdmissions$n)
+#normalization
+# Select the numeric variable to normalize (e.g., "n")
+numeric_variable <- UCBAdmissions$n
+
+# Define a function for min-max normalization
+min_max_normalize <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+
+# Apply min-max normalization to the selected variable
+normalized_variable <- min_max_normalize(numeric_variable)
+normalized_variable
+
+#plot
+#scatter plot
+# Create a table of counts by Gender
+gender_counts <- table(UCBAdmissions$Gender)
+
+# Extract data from the table
+gender_data <- as.data.frame(gender_counts)
+
+# Rename the columns for clarity
+colnames(gender_data) <- c("Gender", "Count")
+
+# Create a scatter plot
+plot(gender_data$Gender, gender_data$Count, 
+     xlab = "Gender",
+     ylab = "Count",
+     main = "Admissions by Gender (Scatter Plot)",
+     col = "blue",
+     pch = 19)  # Use filled circles as markers
+#Barplot
+barplot(table(UCBAdmissions$Gender), 
+       main = "Admissions by Gender",
+       xlab = "Gender",
+       ylab = "Count",
+       col = "blue")
+```
